@@ -8,7 +8,7 @@ namespace Practice
 {
     internal class Program
     {
-        
+
         //проверка строки на чётность
         static bool IsEven(string str)
         {
@@ -67,9 +67,9 @@ namespace Practice
             Console.WriteLine("Введите строку");
             string str = Console.ReadLine();
             StringProcessing(str, out string newStr);
-            Console.WriteLine("Обработанная строка:");
             if (newStr != string.Empty)
             {
+                Console.WriteLine("Обработанная строка:");
                 Console.WriteLine(newStr);
             }
         }
