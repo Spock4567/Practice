@@ -8,8 +8,22 @@ namespace Practice
 {
     internal class Program
     {
+        //проверка на наличие в строке неподходящих символов
+        static List<Char> GetUnsuitableChars(string str)
+        {
+            List<char> unsuitableChars = new List<char>(); 
+            string alphabet = "abcdefghijklmnopqrstuvwxyz"; 
+            foreach (char c in str)
+            {
+                if (!alphabet.Contains(c))
+                {
+                    unsuitableChars.Add(c);
+                }
+            }
+            return unsuitableChars;
+        }
 
-        //проверка строки на чётность
+        //проверка строки на чётностьм
         static bool IsEven(string str)
         {
             int length = str.Length;
@@ -25,10 +39,21 @@ namespace Practice
         //в зависимости от её четности/нечетности вызываем ту или иную функцию
         static void StringProcessing(string str, out string newStr)
         {
-            if (IsEven(str))
-                newStr = EvenStringProcessing(str);
+            //если в строке есть неподходящие символы
+            if (GetUnsuitableChars(str).Count != 0)
+            {
+                Console.WriteLine("В сообщении содержатся неподходящие символы:");
+                foreach (char c in GetUnsuitableChars(str))
+                    Console.Write(c);
+                newStr = string.Empty;
+            }
             else
-                newStr = OddStringProcessing(str);
+            {
+                if (IsEven(str))
+                    newStr = EvenStringProcessing(str);
+                else
+                    newStr = OddStringProcessing(str);
+            }
         }
 
         // обработка строк с четным количеством сммволов
