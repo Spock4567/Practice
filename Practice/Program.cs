@@ -49,24 +49,20 @@ namespace Practice
                     {
                         count++;
                     }
-                        
-
                 }
                 if (count > 1)
                 {
                     ThereAreRepeatingChars = true;
                     Console.Write($"{currChar} - {count}, ");
                 }
-                    
                 nonRepeatingChars.Add(currChar);
             }
             if (ThereAreRepeatingChars)
             {
-                Console.Write("\n"); //т.к. мы делали console.write
+                Console.Write("\n"); //т.к. мы делали console.write при выводе повторяющихся
             }
             else
                 Console.WriteLine("В строке нет повторяющихся символов");
-            
         }
 
         //проверка строки на чётность
