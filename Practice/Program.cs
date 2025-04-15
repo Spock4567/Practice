@@ -23,48 +23,7 @@ namespace Practice
             return unsuitableChars;
         }
 
-        //вычисление числа повторений символов в строке
-        static void GetNumberOfCharsRepetitions(string str)
-        {
-            Console.WriteLine("Число повторений символов в строке:");
-            int count; //переменная для количества повторений
-            char currChar;//текущий символ
-            bool ThereAreRepeatingChars = false;
-            //чтобы информация о количестве повторений того или иного символа
-            //не выводилась несколько раз, будем заносить каждый пройденный
-            //символ в список и при анализе следующих символов проверять,
-            //не посчитали ли мы уже число повторений этого символа
-            List<char> nonRepeatingChars = new List<char>(); 
-            for(int i = 0; i < str.Length; i++)
-            {
-                currChar = str[i];
-                if(nonRepeatingChars.Contains(currChar))
-                    continue;
-                count = 0;
-                foreach (char c in str)
-                {
-                    if (c == currChar)
-                    {
-                        count++;
-                    }
-                }
-                if (count > 1)
-                {
-                    ThereAreRepeatingChars = true;
-                    Console.Write($"{currChar} - {count}, ");
-                }
-                nonRepeatingChars.Add(currChar);
-            }
-            if (ThereAreRepeatingChars)
-            {
-                Console.Write("\n"); //т.к. мы делали console.write при выводе повторяющихся
-            }
-            else
-                Console.WriteLine("В строке нет повторяющихся символов");
-        }
-
-        //проверка строки на чётность
-
+        //проверка строки на чётностьм
         static bool IsEven(string str)
         {
             int length = str.Length;
@@ -94,7 +53,6 @@ namespace Practice
                     newStr = EvenStringProcessing(str);
                 else
                     newStr = OddStringProcessing(str);
-                GetNumberOfCharsRepetitions(str);
             }
         }
 
