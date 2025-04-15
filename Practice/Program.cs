@@ -64,7 +64,6 @@ namespace Practice
         }
 
         //проверка строки на чётность
-
         static bool IsEven(string str)
         {
             int length = str.Length;
