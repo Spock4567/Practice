@@ -8,12 +8,11 @@ namespace Practice
 {
     internal class Program
     {
-
         //проверка на наличие в строке неподходящих символов
         static List<Char> GetUnsuitableChars(string str)
         {
-            List<char> unsuitableChars = new List<char>(); //список, в который занесутся все найденные неподходящие символы
-            string alphabet = "abcdefghijklmnopqrstuvwxyz"; //список разрешённых символов
+            List<char> unsuitableChars = new List<char>(); 
+            string alphabet = "abcdefghijklmnopqrstuvwxyz"; 
             foreach (char c in str)
             {
                 if (!alphabet.Contains(c))
@@ -22,7 +21,6 @@ namespace Practice
                 }
             }
             return unsuitableChars;
-
         }
 
         //вычисление числа повторений символов в строке
@@ -66,6 +64,7 @@ namespace Practice
         }
 
         //проверка строки на чётность
+
         static bool IsEven(string str)
         {
             int length = str.Length;
@@ -97,7 +96,6 @@ namespace Practice
                     newStr = OddStringProcessing(str);
                 GetNumberOfCharsRepetitions(str);
             }
-
         }
 
         // обработка строк с четным количеством сммволов
