@@ -26,7 +26,7 @@ namespace Practice
         //вычисление числа повторений символов в строке
         static void GetNumberOfCharsRepetitions(string str)
         {
-            Console.WriteLine("Число повторений символов в строке:");
+            Console.WriteLine("Число повторений символов в обработанной строке:");
             int count; //переменная для количества повторений
             char currChar;//текущий символ
             bool ThereAreRepeatingChars = false;
@@ -60,7 +60,7 @@ namespace Practice
                 Console.Write("\n"); //т.к. мы делали console.write при выводе повторяющихся
             }
             else
-                Console.WriteLine("В строке нет повторяющихся символов");
+                Console.WriteLine("В обработанной строке нет повторяющихся символов");
         }
 
         //проверка строки на чётность
@@ -94,7 +94,6 @@ namespace Practice
                     newStr = EvenStringProcessing(str);
                 else
                     newStr = OddStringProcessing(str);
-                GetNumberOfCharsRepetitions(str);
             }
         }
 
@@ -138,6 +137,7 @@ namespace Practice
             {
                 Console.WriteLine("Обработанная строка:");
                 Console.WriteLine(newStr);
+                GetNumberOfCharsRepetitions(newStr);
             }
         }
     }
