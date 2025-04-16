@@ -23,6 +23,33 @@ namespace Practice
             return unsuitableChars;
         }
 
+        //получение самой длинной подстроки,
+        //начинающейся и заканчивающейся на гласной
+        static string GetLongestVowelSubstring(string str)
+        {
+            string vowels = "aeiouy"; //гласные буквы
+            string longestSubstring = "";
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (vowels.Contains(str[i])) // начинаем с гласной
+                {
+                    for (int j = i; j < str.Length; j++)
+                    {
+                        if (vowels.Contains(str[j])) // заканчиваем на гласной
+                        {
+                            string currentSubstring = str.Substring(i, j - i + 1);
+                            if (currentSubstring.Length > longestSubstring.Length)
+                            {
+                                longestSubstring = currentSubstring;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return longestSubstring;
+        }
+
         //вычисление числа повторений символов в строке
         static void GetNumberOfCharsRepetitions(string str)
         {
@@ -137,6 +164,10 @@ namespace Practice
                 Console.WriteLine("Обработанная строка:");
                 Console.WriteLine(newStr);
                 GetNumberOfCharsRepetitions(newStr);
+                Console.WriteLine("Самая большая подстрока в обработанной строке," +
+                    "которая начинается и заканяивается на гласную:");
+                string longestVowelSubstr = GetLongestVowelSubstring(newStr);
+                Console.WriteLine(longestVowelSubstr);
             }
         }
     }
