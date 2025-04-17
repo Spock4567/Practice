@@ -23,6 +23,114 @@ namespace Practice
             return unsuitableChars;
         }
 
+        // Быстрая сортировка
+
+        //функция, преобразующая входную строку в массив символов,
+        //вызывающая QuickSort для этого массива и преобразующая
+        //его обратно в строку уже отсортированную
+        public static string QuickSortString(string str)
+        {
+            char[] charArr = str.ToCharArray();
+            QuickSort(charArr, 0, charArr.Length - 1);
+            return new string(charArr);
+        }
+
+        //сортировка массива символов методом быстрой сортировки
+        private static void QuickSort(char[] arr, int left, int right)
+        {
+            if (left < right)
+            {
+                int supportElementIndex = Partition(arr, left, right);
+                QuickSort(arr, left, supportElementIndex - 1);
+                QuickSort(arr, supportElementIndex + 1, right);
+            }
+        }
+
+        // функция разделения, выбирающая опорный элемент и
+        // располагающая элементы меньше опорного слева, а больше – справа
+        private static int Partition(char[] arr, int left, int right)
+        {
+            char supportElement = arr[right];
+            int i = left - 1;
+            for (int j = left; j < right; j++)
+            {
+                if (arr[j] <= supportElement) // Сравниваем символы
+                {
+                    i++;
+                    Swap(arr, i, j);
+                }
+            }
+            Swap(arr, i + 1, right);
+            return i + 1;
+        }
+
+        private static void Swap(char[] arr, int i, int j)
+        {
+            char temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+
+        //Сортировка деревом
+
+        // узел бинарного дерева
+        private class Node
+        {
+            public char Value { get; set; }
+            public Node Left { get; set; }
+            public Node Right { get; set; }
+
+            public Node(char value)
+            {
+                Value = value;
+            }
+        }
+
+        // функция для сортировки деревом
+        public static string TreeSortString(string str)
+        {
+            Node root = null;
+            foreach (char c in str)
+            {
+                root = Insert(root, c);
+            }
+
+            StringBuilder sortedString = new StringBuilder();
+            InOrderTraversal(root, sortedString);
+            return sortedString.ToString();
+
+        }
+
+        // вставка узла в дерево
+        private static Node Insert(Node root, char value)
+        {
+            if (root == null)
+            {
+                return new Node(value);
+            }
+
+            if (value < root.Value)
+            {
+                root.Left = Insert(root.Left, value);
+            }
+            else
+            {
+                root.Right = Insert(root.Right, value);
+            }
+            return root;
+        }
+
+        // симметричный обход дерева
+        private static void InOrderTraversal(Node node, StringBuilder sb)
+        {
+            if (node != null)
+            {
+                InOrderTraversal(node.Left, sb);
+                sb.Append(node.Value);
+                InOrderTraversal(node.Right, sb);
+            }
+        }
+
         //получение самой длинной подстроки,
         //начинающейся и заканчивающейся на гласной
         static string GetLongestVowelSubstring(string str)
@@ -169,6 +277,12 @@ namespace Practice
                     "которая начинается и заканяивается на гласную:");
                 string longestVowelSubstr = GetLongestVowelSubstring(newStr);
                 Console.WriteLine(longestVowelSubstr);
+                string quickSortedNewStr = QuickSortString(newStr);
+                //Быстрая сортировка
+                Console.WriteLine("Быстрая сортировка обработанной строки: " + "\n" + quickSortedNewStr);
+                // Сортировка деревом
+                string treeSortedNewStr = TreeSortString(newStr);
+                Console.WriteLine("Сортировка деревом: " + "\n" + treeSortedNewStr);
             }
         }
     }
