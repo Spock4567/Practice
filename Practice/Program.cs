@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Http;
+using System.Text.Json;
 
 namespace Practice
 {
@@ -21,6 +23,43 @@ namespace Practice
                 }
             }
             return unsuitableChars;
+        }
+
+        static HttpClient client = new HttpClient();
+
+        //удаление из строки случайного символа
+        static async Task<string> DeleteRandomChar(string str)
+        {
+            int randomIndex = await GetRandomNumber(str.Length - 1); // получаем случайный индекс 
+
+            if (randomIndex < 0 || randomIndex >= str.Length)
+            {
+                Console.WriteLine("Индекс вне допустимого диапазона");
+                return str;
+            }
+
+            // удаляем символ по индексу
+            return str.Remove(randomIndex, 1);
+        }
+
+        // получаем случайный индекс 
+        static async Task<int> GetRandomNumber(int max)
+        {
+            try
+            {
+                // пытаемся получить число от удаленного API
+                string apiUrl = $"http://www.randomnumberapi.com/api/v1.0/random?min=0&max={max}&count=1";
+                string responseString = await client.GetStringAsync(apiUrl);
+
+                int[] numbers = JsonSerializer.Deserialize<int[]>(responseString);
+                return numbers[0];
+            }
+            catch (Exception ex) // обработка ошибок API
+            {
+                Console.WriteLine($"Ошибка API: {ex.Message}. Используется локальный генератор");
+                Random rnd = new Random();
+                return rnd.Next(0, max + 1); 
+            }
         }
 
         // Быстрая сортировка
@@ -263,7 +302,7 @@ namespace Practice
             return newStr;
         }
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             Console.WriteLine("Введите строку");
             string str = Console.ReadLine();
@@ -283,6 +322,19 @@ namespace Practice
                 // Сортировка деревом
                 string treeSortedNewStr = TreeSortString(newStr);
                 Console.WriteLine("Сортировка деревом: " + "\n" + treeSortedNewStr);
+                //Удаление из обработанной строки символа со случайным индексом
+                Console.WriteLine("Удаление из обработанной строки символа со случайным индексом");
+                string newStrShorted = await DeleteRandomChar(newStr);
+                Console.WriteLine($"Измененная строка:" + "\n" + newStrShorted);
+                //Ищем какой символ оказался удалён
+                for(int i = 0; i < newStr.Length; i++)
+                {
+                    if (newStrShorted[i] != newStr[i])
+                    {
+                        Console.WriteLine($"Удалён {i+1} символ {newStr[i]}");
+                        break;
+                    }
+                }
             }
         }
     }
